@@ -1,5 +1,10 @@
 # simple-menti-fudger
 
+Requirements:
+
+- nodejs
+- git (to clone, alternatively you can just download and extract the zip)
+
 Basically:
 
 - `git clone` it
