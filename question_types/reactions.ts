@@ -14,9 +14,9 @@ export default async function addReactions(question: any) {
   const reaction = availableReactions[reactionNumber];
 
   console.log("\nHow many reactions to send?");
-  const numReactions = await getNumberInRange(1, 10);
+  const numReactions = await getNumberInRange(1, 100);
   for (let index = 0; index < numReactions; index++) {
-    await sleep(Math.random() * 240 + 10);
+    await sleep(Math.random() * 900 + 100);
     sendReaction(voteKey, publicKey, reaction);
   }
 }

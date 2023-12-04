@@ -31,12 +31,31 @@ async function main() {
 
   voteKey = readableResponse.vote_key;
 
-  console.log("\n\nAvailable questions:");
-  printAvailableQuestions(readableResponse.questions);
+  var question: any;
 
-  var questionNumber = await getQuestionInput(readableResponse.questions);
+  if (
+    (await readline.question(
+      "Enter 'SELECT' to select a question, anything else to continue to current question:\n"
+    )) == "SELECT"
+  ) {
+    console.log("\n\nAvailable questions:");
+    printAvailableQuestions(readableResponse.questions);
+    const questionNumber = await getQuestionInput(readableResponse.questions);
 
-  const question = readableResponse.questions[questionNumber];
+    question = readableResponse.questions[questionNumber];
+  } else {
+    const questions: any[] = readableResponse.questions;
+
+    for (let index = 0; index < questions.length; index++) {
+      const element = questions[index];
+    }
+
+    question = questions.find((question, index) => {
+      if (question.id == readableResponse.pace.active) {
+        return true;
+      }
+    });
+  }
 
   const justAddReactions = await readline.question(
     "Enter 'REACT' to just skip to reacting, anything else to continue normally:\n"
