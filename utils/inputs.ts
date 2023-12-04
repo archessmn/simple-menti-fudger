@@ -36,6 +36,24 @@ export async function getChoicesInput(choices: any[]) {
   return choices.find((choice) => choice.id == choiceNumber);
 }
 
+export async function getReactionsInput(reactions: string[]) {
+  var reactionNumber = Number(
+    await readline.question("Which one shall we send:          ")
+  );
+
+  while (
+    isNaN(reactionNumber) ||
+    reactionNumber >= reactions.length ||
+    reactionNumber < 0
+  ) {
+    reactionNumber = Number(
+      await readline.question("Really? The numbers are right there:  ")
+    );
+  }
+
+  return reactionNumber;
+}
+
 export async function getNumberInRange(
   lower: number,
   upper: number

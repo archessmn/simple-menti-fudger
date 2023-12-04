@@ -1,4 +1,5 @@
 import choices from "./question_types/choices";
+import addReactions from "./question_types/reactions";
 import wordcloud from "./question_types/wordcloud";
 import { getQuestionInput } from "./utils/inputs";
 import {
@@ -19,11 +20,15 @@ export const readline = readline_lib.createInterface({
 });
 
 export var voteKey: string;
+export var reactionColors: string[];
 
 async function main() {
   const code = await readline.question("What's the menti code?            ");
 
   const readableResponse = await getSeries(code.replace(" ", ""));
+
+  reactionColors = readableResponse.theme.bar_color;
+
   voteKey = readableResponse.vote_key;
 
   console.log("\n\nAvailable questions:");
@@ -33,37 +38,31 @@ async function main() {
 
   const question = readableResponse.questions[questionNumber];
 
-  switch (question.type) {
-    case "choices":
-      await choices(question);
+  const justAddReactions = await readline.question(
+    "Enter 'REACT' to just skip to reacting, anything else to continue normally:\n"
+  );
+
+  switch (justAddReactions) {
+    case "REACT":
       break;
-    case "wordcloud":
-      await wordcloud(question);
     default:
-      console.log(`Question type ${question.type} is not supported yet`);
+      switch (question.type) {
+        case "choices":
+          await choices(question);
+          break;
+        case "wordcloud":
+          await wordcloud(question);
+          break;
+        default:
+          console.log(`Question type ${question.type} is not supported yet`);
+          break;
+      }
       break;
   }
+  await addReactions(question);
 
-  const availableReactions = readableResponse.questions[0].reactions;
-  const publicKey = readableResponse.questions[0].public_key;
-
-  // for (let a = 0; a < 10; a++) {
-  //   votePoll(voteKey, publicKey, 1);
-  // }
-
-  // console.log("\n\nAvailable reactions:");
-  // printAvailableReactions(availableReactions);
-
-  // for (let r = 0; r < availableReactions.length; r++) {
-  //   const reaction = availableReactions[r];
-
-  //   for (let index = 0; index < numReactions; index++) {
-  //     sendReaction(voteKey, publicKey, reaction);
-  //   }
-
-  //   await sleep(1000);
-  // }
-  // process.exit();
+  // const availableReactions = readableResponse.questions[0].reactions;
+  // const publicKey = readableResponse.questions[0].public_key;
 }
 
 function printAvailableReactions(reactions: string[]) {

@@ -1,3 +1,5 @@
+import { reactionColors } from "..";
+
 export async function getIdentifier(): Promise<string> {
   const rawIdentifierResponse = await fetch(
     "https://www.menti.com/core/identifiers",
@@ -71,7 +73,9 @@ export async function sendReaction(
         "Cache-Control": "no-cache",
       },
       referrer: `https://www.menti.com/${voteKey}`,
-      body: `{"emoji":"${reaction}","color":"theme-fill-color-1"}`,
+      body: `{"emoji":"${reaction}","color":"theme-fill-color-${Math.floor(
+        Math.random() * reactionColors.length
+      )}"}`,
       method: "POST",
       mode: "cors",
     }
