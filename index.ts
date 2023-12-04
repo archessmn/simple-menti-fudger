@@ -1,3 +1,5 @@
+const numReactions = 300;
+
 const readline = require("readline").createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -51,7 +53,7 @@ readline.question("What's the menti code?  ", async (code: string) => {
   for (let r = 0; r < availableReactions.length; r++) {
     const reaction = availableReactions[r];
 
-    for (let index = 0; index < 300; index++) {
+    for (let index = 0; index < numReactions; index++) {
       sendReaction(voteKey, publicKey, reaction);
     }
 
