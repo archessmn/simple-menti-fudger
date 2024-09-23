@@ -14,7 +14,7 @@ export default async function choices(question: any) {
   const numberOfAnswers = await getNumberInRange(1, 50);
 
   for (let index = 0; index < numberOfAnswers; index++) {
-    await sleep(Math.random() * 3500 + 500);
+    await sleep(Math.random() * 500 + 500);
     votePoll(voteKey, question.public_key, choice.id);
   }
 }

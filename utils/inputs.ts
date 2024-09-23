@@ -56,13 +56,18 @@ export async function getReactionsInput(reactions: string[]) {
 
 export async function getNumberInRange(
   lower: number,
-  upper: number
+  upper: number,
+  override?: boolean
 ): Promise<number> {
   var numberInput = Number(
     await readline.question(
       `Pick a number between ${lower} and ${upper} inclusive:   `
     )
   );
+
+  if (!isNaN(numberInput) && override) {
+    return numberInput;
+  }
 
   while (isNaN(numberInput) || numberInput < lower || numberInput > upper) {
     var numberInput = Number(

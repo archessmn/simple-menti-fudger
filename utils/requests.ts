@@ -6,6 +6,8 @@ export async function getIdentifier(): Promise<string> {
     {
       credentials: "include",
       headers: {
+        "User-Agent":
+          "Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0",
         Accept: "application/json, text/plain, */*",
         "Accept-Language": "en-GB,en;q=0.5",
         "Sec-Fetch-Dest": "empty",
@@ -26,16 +28,42 @@ export async function getIdentifier(): Promise<string> {
 }
 
 export async function getSeries(code: string): Promise<any> {
+  // await fetch("https://www.menti.com/core/vote-ids/73788168/series", {
+  //   credentials: "include",
+  //   headers: {
+  //     "User-Agent":
+  //       "Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0",
+  //     Accept:
+  //       "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+  //     "Accept-Language": "en-GB,en;q=0.5",
+  //     "Alt-Used": "www.menti.com",
+  //     "Upgrade-Insecure-Requests": "1",
+  //     "Sec-Fetch-Dest": "document",
+  //     "Sec-Fetch-Mode": "navigate",
+  //     "Sec-Fetch-Site": "none",
+  //     "Sec-Fetch-User": "?1",
+  //     Pragma: "no-cache",
+  //     "Cache-Control": "no-cache",
+  //   },
+  //   method: "GET",
+  //   mode: "cors",
+  // });
   const response = await fetch(
     `https://www.menti.com/core/vote-ids/${code.replace(" ", "")}/series`,
     {
       credentials: "include",
       headers: {
-        Accept: "application/json",
+        "User-Agent":
+          "Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0",
+        Accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         "Accept-Language": "en-GB,en;q=0.5",
-        "Sec-Fetch-Dest": "empty",
-        "Sec-Fetch-Mode": "cors",
-        "Sec-Fetch-Site": "same-origin",
+        "Alt-Used": "www.menti.com",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
         Pragma: "no-cache",
         "Cache-Control": "no-cache",
       },
@@ -44,6 +72,8 @@ export async function getSeries(code: string): Promise<any> {
       mode: "cors",
     }
   );
+
+  // console.log(await response.text());
 
   const readableResponse: any = await response.json();
 
@@ -62,6 +92,8 @@ export async function sendReaction(
     {
       credentials: "include",
       headers: {
+        "User-Agent":
+          "Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0",
         Accept: "application/json",
         "Accept-Language": "en-GB,en;q=0.5",
         "Content-Type": "application/json",
@@ -94,6 +126,8 @@ export async function votePoll(
     {
       credentials: "include",
       headers: {
+        "User-Agent":
+          "Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0",
         Accept: "application/json",
         "Accept-Language": "en-GB,en;q=0.5",
         "Content-Type": "application/json",
@@ -127,6 +161,8 @@ export async function sendToWordCloud(
   await fetch(`https://www.menti.com/core/votes/${publicKey}`, {
     credentials: "include",
     headers: {
+      "User-Agent":
+        "Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0",
       Accept: "application/json",
       "Accept-Language": "en-GB,en;q=0.5",
       "Content-Type": "application/json",
